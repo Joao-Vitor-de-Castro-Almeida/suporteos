@@ -4,6 +4,7 @@ import com.curso.domains.GrupoProduto;
 import com.curso.domains.dtos.GrupoProdutoDTO;
 import com.curso.repositories.GrupoProdutoRepository;
 import com.curso.services.exceptions.DataIntegrityViolationException;
+import com.curso.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,7 @@ public class GrupoProdutoService {
 
     public GrupoProduto findById(int id){
         Optional<GrupoProduto> obj = grupoProdutoRepo.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Produto não encontrado! Id: "+ id));
     }
 
     public GrupoProduto create(GrupoProdutoDTO dto){
